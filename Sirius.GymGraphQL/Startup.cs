@@ -31,16 +31,15 @@ internal sealed class Startup
         app.UseRouting();
         app.UseEndpoints(endpoints =>
         {
-            // endpoints.MapGet("/", (ctx) =>
-            // {
-            //     ctx.Response.Redirect("/graphql", true);
-            //     return Task.FromResult(
-            //         new Microsoft.AspNetCore.Mvc.RedirectResult("/graphql", true));
-            // });
+            endpoints.MapGet("/", (ctx) =>
+            {
+                ctx.Response.Redirect("/graphql", true);
+                return Task.FromResult(
+                    new Microsoft.AspNetCore.Mvc.RedirectResult("/graphql", true));
+            });
             endpoints.MapGraphQL().WithOptions(new GraphQLServerOptions
             {
-                Tool = { Enable = true, GraphQLEndpoint = "/graphql", ServeMode = GraphQLToolServeMode.Embedded},
-                
+                Tool = { Enable = true, GraphQLEndpoint = "/graphql", ServeMode = GraphQLToolServeMode.Latest},
             });
             // endpoints.MapGraphQLHttp();
             // endpoints.MapGraphQLSchema();
