@@ -8,8 +8,7 @@ WORKDIR /src
 COPY ["Sirius.GymGraphQL/Sirius.GymGraphQL.csproj", "Sirius.GymGraphQL/"]
 RUN dotnet restore "Sirius.GymGraphQL/Sirius.GymGraphQL.csproj"
 COPY . .
-WORKDIR "/src/SiriusGymGraphQL"
-RUN dotnet build "Sirius.GymGraphQL.csproj" -c Release -o /app/build
+RUN dotnet build "Sirius.GymGraphQL/Sirius.GymGraphQL.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "Sirius.GymGraphQL.csproj" -c Release -o /app/publish
