@@ -46,11 +46,23 @@ public sealed class PurchaseRepository : IPurchaseRepository
 
     public async Task<IEnumerable<Purchase>> GetAllPurchases()
     {
-        return await _purchases.AsNoTracking().Include(_ => _.Training).ThenInclude(_ => _.Gym).Take(50).ToArrayAsync();
+        return await _purchases
+            .AsNoTracking()
+            .Include(_ => _.Training)
+                .ThenInclude(_ => _.Gym)
+            .Include(_ => _.Customer)
+            .Take(50)
+            .ToArrayAsync();
     }
 
     public async Task<IEnumerable<Purchase>> GetCustomerPurchases(Guid customerId)
     {
-        return await _purchases.AsNoTracking().Include(_ => _.Training).ThenInclude(_ => _.Gym).Where(x => x.CustomerId == customerId).ToArrayAsync();
+        return await _purchases
+            .AsNoTracking()
+            .Include(_ => _.Training)
+                .ThenInclude(_ => _.Gym)
+            .Include(_ => _.Customer)
+            .Where(x => x.CustomerId == customerId)
+            .ToArrayAsync();
     }
 }
